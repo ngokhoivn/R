@@ -457,6 +457,12 @@
             }
         }
 
+        .btn-editable {
+            background-color: var(--warning-color);
+            color: black;
+        }
+
+
 	</style>
 </head>
 <body>
@@ -506,7 +512,7 @@
             <div id="vocabList"></div>
         </div>
 
-        <div class="content-box">
+        <div id="editableContainer" class="content-box hidden">
             <h3>Soạn thảo văn bản</h3>
             <textarea id="editableText" placeholder="Nội dung có thể chỉnh sửa ở đây..."></textarea>
         </div>
@@ -1506,6 +1512,18 @@ Text to analyze:
             }
         }
 
+        function toggleEditableBox() {
+            const editableContainer = document.getElementById('editableContainer'); // dùng id mới
+            if (!editableContainer) return;
+
+            if (editableContainer.classList.contains('hidden')) {
+                editableContainer.classList.remove('hidden');
+                showStatus('info', 'Đã mở soạn thảo văn bản');
+            } else {
+                editableContainer.classList.add('hidden');
+                showStatus('info', 'Đã ẩn soạn thảo văn bản');
+            }
+        }
     </script>
 
     <!-- Thêm vào cuối thẻ body, trước khi đóng </body> -->
@@ -1513,6 +1531,7 @@ Text to analyze:
         <div class="action-buttons-scroll">
             <button id="micButton" class="btn btn-mic" title="Ghi âm" onclick="onMicButtonClick()">🎙️</button>
             <button id="toggleBilingual" class="btn btn-bilingual" title="Chế độ song ngữ" onclick="toggleBilingualMode()">🌐</button>
+            <button id="editableButton" class="btn btn-editable" title="Ẩn/Hiện Soạn thảo" onclick="toggleEditableBox()">📝</button>
             <button id="correctionButton" class="btn btn-correct" title="Chỉnh sửa" onclick="onCorrectionButtonClick()">✏️</button>
             <button id="translateButton" class="btn btn-translate" title="Dịch" onclick="onTranslateButtonClick()">🔄</button>
             <button id="vocabButton" class="btn btn-vocab" title="Từ vựng" onclick="onVocabButtonClick()">📚</button>
