@@ -18,244 +18,295 @@
 			--info-color: #0288d1;
 		}
 
-		body {
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: var(--background-dark);
-			color: var(--text-color);
-			line-height: 1.6;
-		}
-
-		.container {
-			max-width: 900px;
-			margin: 0 auto;
-			padding: 20px;
-		}
-
-		header {
-			text-align: center;
-			padding: 10px 0;
-			margin-bottom: 20px;
-			border-bottom: 1px solid var(--accent-color);
-		}
-
-		h1 {
-			margin: 0;
-			color: var(--accent-color);
-		}
-
-		.status-bar {
-			background-color: var(--background-light);
-			padding: 10px;
-			margin-bottom: 15px;
-			border-radius: 5px;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-		}
-
-		.status-message {
-			flex-grow: 1;
-		}
-
-		.status-bar.recording {
-			background-color: rgba(170, 0, 255, 0.3);
-			border-left: 4px solid var(--accent-color);
-		}
-
-		.status-bar.error {
-			background-color: rgba(211, 47, 47, 0.3);
-			border-left: 4px solid var(--danger-color);
-		}
-
-		.status-bar.success {
-			background-color: rgba(56, 142, 60, 0.3);
-			border-left: 4px solid var(--success-color);
-		}
-
-		.status-bar.warning {
-			background-color: rgba(245, 127, 23, 0.3);
-			border-left: 4px solid var(--warning-color);
-		}
-
-		.status-bar.info {
-			background-color: rgba(2, 136, 209, 0.3);
-			border-left: 4px solid var(--info-color);
-		}
-
-		.status-bar.processing {
-			background-color: rgba(3, 169, 244, 0.3);
-			border-left: 4px solid #03a9f4;
-		}
-
-		.language-tabs {
-			display: flex;
-			margin-bottom: 15px;
-			border-radius: 5px;
-			overflow: hidden;
-			background-color: var(--background-light);
-		}
-
-		.language-tab {
-			flex-grow: 1;
-			padding: 10px;
-			text-align: center;
-			cursor: pointer;
-			border: none;
-			background-color: var(--background-light);
-			color: var(--text-color);
-			transition: all 0.3s ease;
-		}
-
-			.language-tab:hover {
-				background-color: rgba(170, 0, 255, 0.3);
-			}
-
-			.language-tab.active {
-				background-color: var(--accent-color);
-				color: white;
-			}
-
-		.action-buttons {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 10px;
-			margin-bottom: 15px;
-		}
-
-		.btn {
-			padding: 10px 15px;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: 5px;
-			background-color: var(--primary-color);
-			color: white;
-			transition: all 0.3s ease;
-			min-width: 120px;
-		}
-
-			.btn:hover {
-				background-color: var(--secondary-color);
-				transform: translateY(-2px);
-			}
-
-		.btn-mic {
-			background-color: var(--accent-color);
-		}
-
-			.btn-mic.active {
-				background-color: var(--danger-color);
-				animation: pulse 1.5s infinite;
-			}
-
-        .btn-bilingual.active {
-            background-color: var(--danger-color);
-            animation: pulse 1.5s infinite;
+        :root {
+            --primary-color: #4a148c;
+            --secondary-color: #7b1fa2;
+            --text-color: #f5f5f5;
+            --background-dark: #121212;
+            --background-light: #1e1e1e;
+            --accent-color: #aa00ff;
+            --danger-color: #d32f2f;
+            --success-color: #388e3c;
+            --warning-color: #f57f17;
+            --info-color: #0288d1;
         }
 
-		@keyframes pulse {
-			0% {
-				box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
-			}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
 
-			70% {
-				box-shadow: 0 0 0 10px rgba(211, 47, 47, 0);
-			}
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-			100% {
-				box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
-			}
-		}
+        header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--accent-color);
+        }
 
-		.btn-clear {
-			background-color: var(--danger-color);
-		}
+        h1 {
+            margin: 0;
+            color: var(--accent-color);
+        }
 
-		.btn-correct {
-			background-color: var(--success-color);
-		}
+        .status-bar {
+            background-color: var(--background-light);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-		.btn-translate {
-			background-color: var(--info-color);
-		}
+        .status-message {
+            flex-grow: 1;
+        }
 
-		.btn-vocab {
-			background-color: var(--warning-color);
-		}
+        .status-bar.recording {
+            background-color: rgba(170, 0, 255, 0.3);
+            border-left: 4px solid var(--accent-color);
+        }
 
-		.content-box {
-			background-color: var(--background-light);
-			padding: 15px;
-			border-radius: 5px;
-			margin-bottom: 15px;
-		}
+        .status-bar.error {
+            background-color: rgba(211, 47, 47, 0.3);
+            border-left: 4px solid var(--danger-color);
+        }
 
-			.content-box h3 {
-				margin-top: 0;
-				color: var(--accent-color);
-				border-bottom: 1px solid rgba(170, 0, 255, 0.3);
-				padding-bottom: 5px;
-			}
+        .status-bar.success {
+            background-color: rgba(56, 142, 60, 0.3);
+            border-left: 4px solid var(--success-color);
+        }
 
-		.result-box {
-			min-height: 80px;
-			white-space: pre-wrap;
-		}
+        .status-bar.warning {
+            background-color: rgba(245, 127, 23, 0.3);
+            border-left: 4px solid var(--warning-color);
+        }
 
-		.corrected-box, .translation-box, .vocab-box {
-			border-left: 4px solid var(--accent-color);
-		}
+        .status-bar.info {
+            background-color: rgba(2, 136, 209, 0.3);
+            border-left: 4px solid var(--info-color);
+        }
 
-		.hidden {
-			display: none;
-		}
+        .status-bar.processing {
+            background-color: rgba(3, 169, 244, 0.3);
+            border-left: 4px solid #03a9f4;
+        }
 
-		textarea {
-			width: 100%;
-			padding: 10px;
-			background-color: var(--background-dark);
-			border: 1px solid #333;
-			border-radius: 5px;
-			color: var(--text-color);
-			min-height: 120px;
-			resize: vertical;
-		}
+        .language-tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: var(--background-light);
+        }
 
-		@media (max-width: 768px) {
-			.action-buttons {
-				flex-direction: column;
-			}
+        .language-tab {
+            flex-grow: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
 
-			.btn {
-				width: 100%;
-			}
-		}
+            .language-tab:hover {
+                background-color: rgba(170, 0, 255, 0.3);
+            }
 
-		/* Vocab table styling */
-		table {
-			width: 100%;
-			border-collapse: collapse;
-			margin-top: 10px;
-		}
+            .language-tab.active {
+                background-color: var(--accent-color);
+                color: white;
+            }
 
-		th, td {
-			padding: 8px;
-			border: 1px solid #333;
-		}
+        .floating-action-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            padding: 0 10px;
+            pointer-events: none;
+        }
 
-		th {
-			background-color: var(--background-dark);
-			color: var(--accent-color);
-		}
+        .action-buttons-scroll {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
+            padding: 10px;
+            background-color: var(--background-light);
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            overflow-x: auto;
+            max-width: 100%;
+            pointer-events: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            white-space: nowrap;
+        }
 
-		tr:nth-child(even) {
-			background-color: rgba(0, 0, 0, 0.2);
-		}
+            .action-buttons-scroll::-webkit-scrollbar {
+                display: none;
+            }
+
+            .action-buttons-scroll .btn {
+                flex: 0 0 auto;
+                padding: 8px;
+                min-width: 40px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                border: none;
+                cursor: pointer;
+                color: white;
+                transition: all 0.3s ease;
+                position: relative;
+            }
+
+                .action-buttons-scroll .btn:hover {
+                    background-color: var(--secondary-color);
+                    transform: translateY(-2px);
+                }
+
+                .action-buttons-scroll .btn:active::after {
+                    content: attr(title);
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: var(--background-light);
+                    color: var(--text-color);
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    white-space: nowrap;
+                    z-index: 1000;
+                    pointer-events: none;
+                }
+
+        .btn-mic {
+            background-color: var(--accent-color);
+        }
+
+            .btn-mic.active {
+                background-color: var(--danger-color);
+                animation: pulse 1.5s infinite;
+            }
+
+        .btn-bilingual {
+            background-color: var(--info-color);
+        }
+
+            .btn-bilingual.active {
+                background-color: var(--danger-color);
+                animation: pulse 1.5s infinite;
+            }
+
+        .btn-correct {
+            background-color: var(--success-color);
+        }
+
+        .btn-translate {
+            background-color: var(--info-color);
+        }
+
+        .btn-vocab {
+            background-color: var(--warning-color);
+        }
+
+        .btn-clear {
+            background-color: var(--danger-color);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(211, 47, 47, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+            }
+        }
+
+        .content-box {
+            background-color: var(--background-light);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+            .content-box h3 {
+                margin-top: 0;
+                color: var(--accent-color);
+                border-bottom: 1px solid rgba(170, 0, 255, 0.3);
+                padding-bottom: 5px;
+            }
+
+        .result-box {
+            min-height: 80px;
+            white-space: pre-wrap;
+        }
+
+        .corrected-box, .translation-box, .vocab-box {
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--background-dark);
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: var(--text-color);
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #333;
+        }
+
+        th {
+            background-color: var(--background-dark);
+            color: var(--accent-color);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
 
         .sentence-pair {
             margin-bottom: 15px;
@@ -271,81 +322,6 @@
             color: #4CAF50;
         }
 
-        /* Thêm vào phần style */
-        .floating-action-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            z-index: 1000;
-            pointer-events: none; /* Cho phép click xuyên qua vùng trống */
-        }
-
-        .action-buttons-scroll {
-            display: flex;
-            overflow-x: auto;
-            flex-wrap: nowrap;
-            gap: 10px;
-            padding: 10px;
-            background-color: var(--background-light);
-            border-radius: 50px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 100%;
-            pointer-events: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-
-            .action-buttons-scroll::-webkit-scrollbar {
-                display: none; /* Ẩn thanh cuộn trên Chrome/Safari */
-            }
-
-            .action-buttons-scroll .btn {
-                flex: 0 0 auto; /* Không co giãn, không thu nhỏ, kích thước tự động */
-                white-space: nowrap; /* Ngăn chữ xuống dòng */
-                min-width: 120px;
-                padding: 10px 15px;
-            }
-
-        /* Hiệu ứng khi cuộn */
-        .action-buttons-scroll {
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
-        }
-
-        /* Ẩn thanh nút khi không cần thiết */
-        @media (min-width: 1200px) {
-            .action-buttons-scroll {
-                overflow-x: visible;
-                justify-content: center;
-            }
-        }
-
-        /* Điều chỉnh cho mobile */
-        @media (max-width: 768px) {
-            .floating-action-bar {
-                bottom: 10px;
-            }
-
-            .action-buttons-scroll {
-                max-width: 95%;
-                padding: 8px;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-            }
-
-                .action-buttons-scroll .btn {
-                    min-width: 100px;
-                    padding: 8px 12px;
-                    font-size: 14px;
-                }
-        }
-
-        /* CSS cũ (giữ nguyên) */
         .copy-spreadsheet-btn {
             background-color: var(--secondary-color);
             border: none;
@@ -357,15 +333,14 @@
             transition: all 0.3s ease;
         }
 
-        .copy-spreadsheet-btn:hover {
-            background-color: var(--accent-color);
-        }
+            .copy-spreadsheet-btn:hover {
+                background-color: var(--accent-color);
+            }
 
-        .copy-spreadsheet-btn.copied {
-            background-color: var(--success-color);
-        }
+            .copy-spreadsheet-btn.copied {
+                background-color: var(--success-color);
+            }
 
-        /* === TỐI ƯU CHO NÚT COPY TỪ VỰNG === */
         .vocab-header {
             display: flex;
             justify-content: space-between;
@@ -375,24 +350,18 @@
             padding-bottom: 5px;
         }
 
-        .vocab-header h3 {
-            margin: 0;
-            color: var(--accent-color);
-        }
+            .vocab-header h3 {
+                margin: 0;
+                color: var(--accent-color);
+            }
 
-        .vocab-header .copy-spreadsheet-btn {
-            margin-top: 0; /* Ghi đè margin cũ */
-            padding: 6px 12px;
-            font-size: 14px;
-            white-space: nowrap;
-            background-color: var(--secondary-color);
-        }
+            .vocab-header .copy-spreadsheet-btn {
+                margin-top: 0;
+                padding: 6px 12px;
+                font-size: 14px;
+                white-space: nowrap;
+            }
 
-        .vocab-header .copy-spreadsheet-btn:hover {
-            background-color: var(--accent-color);
-        }
-
-        /* === TỐI ƯU CHO NÚT "ĐÃ CHỈNH SỬA" === */
         .corrected-header {
             display: flex;
             justify-content: space-between;
@@ -402,33 +371,59 @@
             padding-bottom: 5px;
         }
 
-        .corrected-header h3 {
-            margin: 0;
-            color: var(--accent-color);
-        }
+            .corrected-header h3 {
+                margin: 0;
+                color: var(--accent-color);
+            }
 
         .corrected-actions {
             display: flex;
             gap: 8px;
         }
 
-        .corrected-actions .btn {
-            padding: 6px 10px;
-            font-size: 14px;
-            min-width: unset; /* Bỏ width cố định */
-        }
+            .corrected-actions .btn {
+                padding: 6px 10px;
+                font-size: 14px;
+                min-width: unset;
+                border-radius: 5px;
+            }
 
-        /* === RESPONSIVE CHO MOBILE === */
         @media (max-width: 768px) {
-            /* Điều chỉnh nút trên mobile */
+            .container {
+                padding: 15px;
+            }
+
+            .floating-action-bar {
+                bottom: 10px;
+                padding: 0 5px;
+            }
+
+            .action-buttons-scroll {
+                gap: 6px;
+                padding: 8px;
+            }
+
+                .action-buttons-scroll .btn {
+                    min-width: 36px;
+                    width: 36px;
+                    height: 36px;
+                    padding: 6px;
+                    font-size: 16px;
+                }
+
+                    .action-buttons-scroll .btn:active::after {
+                        font-size: 10px;
+                        padding: 3px 6px;
+                    }
+
             .corrected-actions {
                 gap: 4px;
             }
 
-            .corrected-actions .btn {
-                padding: 4px 8px;
-                font-size: 12px;
-            }
+                .corrected-actions .btn {
+                    padding: 4px 8px;
+                    font-size: 12px;
+                }
 
             .vocab-header .copy-spreadsheet-btn {
                 padding: 4px 8px;
@@ -436,7 +431,31 @@
             }
         }
 
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
 
+            .action-buttons-scroll .btn {
+                min-width: 32px;
+                width: 32px;
+                height: 32px;
+                padding: 5px;
+                font-size: 14px;
+            }
+
+            .action-buttons-scroll {
+                gap: 5px;
+                padding: 6px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .action-buttons-scroll {
+                overflow-x: visible;
+                justify-content: center;
+            }
+        }
 
 	</style>
 </head>
@@ -1329,16 +1348,17 @@
 
         // --- CẬP NHẬT TRẠNG THÁI NÚT MIC ---
         function updateMicButtonState(isActive) {
-            const micButton = document.getElementById('micButton'); // Lấy lại từ DOM trực tiếp mỗi lần
-
-            if (!micButton) return; // Nếu chưa có thì bỏ qua
+            const micButton = document.getElementById('micButton');
+            if (!micButton) return;
 
             if (isActive) {
                 micButton.classList.add('active');
-                micButton.innerHTML = '🛑 Dừng';
+                micButton.innerHTML = '🛑'; // Icon dừng khi đang ghi âm
+                micButton.title = 'Dừng ghi âm';
             } else {
                 micButton.classList.remove('active');
-                micButton.innerHTML = '🎙️ Ghi âm';
+                micButton.innerHTML = '🎙️'; // Icon ghi âm khi không hoạt động
+                micButton.title = 'Ghi âm';
             }
         }
 
@@ -1444,13 +1464,13 @@
     <!-- Thêm vào cuối thẻ body, trước khi đóng </body> -->
     <div class="floating-action-bar">
         <div class="action-buttons-scroll">
-            <button id="micButton" class="btn btn-mic" onclick="onMicButtonClick()">🎙️ Ghi âm</button>
-            <button id="toggleBilingual" class="btn btn-bilingual" onclick="toggleBilingualMode()">🌐 Chế độ song ngữ</button>
-            <button id="correctionButton" class="btn btn-correct" onclick="onCorrectionButtonClick()">✏️ Chỉnh sửa</button>
-            <button id="translateButton" class="btn btn-translate" onclick="onTranslateButtonClick()">🔄 Dịch</button>
-            <button id="vocabButton" class="btn btn-vocab" onclick="onVocabButtonClick()">📚 Từ vựng</button>
-            <button id="saveButton" class="btn" onclick="onSaveButtonClick()">💾 Lưu</button>
-            <button id="clearButton" class="btn btn-clear" onclick="onClearButtonClick()">🗑️ Xóa tất cả</button>
+            <button id="micButton" class="btn btn-mic" title="Ghi âm" onclick="onMicButtonClick()">🎙️</button>
+            <button id="toggleBilingual" class="btn btn-bilingual" title="Chế độ song ngữ" onclick="toggleBilingualMode()">🌐</button>
+            <button id="correctionButton" class="btn btn-correct" title="Chỉnh sửa" onclick="onCorrectionButtonClick()">✏️</button>
+            <button id="translateButton" class="btn btn-translate" title="Dịch" onclick="onTranslateButtonClick()">🔄</button>
+            <button id="vocabButton" class="btn btn-vocab" title="Từ vựng" onclick="onVocabButtonClick()">📚</button>
+            <button id="saveButton" class="btn" title="Lưu" onclick="onSaveButtonClick()">💾</button>
+            <button id="clearButton" class="btn btn-clear" title="Xóa tất cả" onclick="onClearButtonClick()">🗑️</button>
         </div>
     </div>
 </body>
