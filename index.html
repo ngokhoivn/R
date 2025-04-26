@@ -607,6 +607,7 @@
         }
 
         // --- GỢI Ý từ VỰNG ---
+        // --- GỢI Ý từ VỰNG ---
         async function suggestVocabulary(text, sourceLang) {
             if (!text || text.trim() === '') {
                 return '<i>Không có nội dung để gợi ý từ vựng</i>';
@@ -661,22 +662,57 @@
                     return '<i>Không có từ vựng nào được phát hiện.</i>';
                 }
 
-                // Định dạng dưới dạng bảng
-                const rows = rawText.split('\n')
-                    .filter(line => line.trim() && line.includes('-'))
-                    .map(line => {
-                        const parts = line.split('-').map(s => s.trim());
-                        return `<tr><td>${parts[0]}</td><td>${parts.slice(1).join(' - ')}</td></tr>`;
-                    });
+                // Xử lý kết quả cho tiếng Nhật (3 cột)
+                if (sourceLang === 'ja-JP') {
+                    const rows = rawText.split('\n')
+                        .filter(line => line.trim() && line.includes('-'))
+                        .map(line => {
+                            const parts = line.split('-').map(s => s.trim());
+                            // Đảm bảo có đủ 3 phần (Kanji - Hiragana - Nghĩa)
+                            if (parts.length >= 3) {
+                                return `<tr>
+                            <td>${parts[0]}</td>
+                            <td>${parts[1]}</td>
+                            <td>${parts.slice(2).join(' - ')}</td>
+                        </tr>`;
+                            }
+                            return ''; // Bỏ qua nếu không đúng định dạng
+                        })
+                        .filter(row => row !== ''); // Lọc bỏ các hàng trống
 
-                return `
-            <table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
-                <tr style="background-color: #222;">
-                    <th>Từ vựng</th><th>Nghĩa</th>
-                </tr>
-                ${rows.join('\n')}
-            </table>
-        `;
+                    return `
+                <table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+                    <tr style="background-color: #222;">
+                        <th>Kanji</th>
+                        <th>Hiragana</th>
+                        <th>Nghĩa</th>
+                    </tr>
+                    ${rows.join('\n')}
+                </table>
+            `;
+                }
+                // Xử lý cho các ngôn ngữ khác (2 cột)
+                else {
+                    const rows = rawText.split('\n')
+                        .filter(line => line.trim() && line.includes('-'))
+                        .map(line => {
+                            const parts = line.split('-').map(s => s.trim());
+                            return `<tr>
+                        <td>${parts[0]}</td>
+                        <td>${parts.slice(1).join(' - ')}</td>
+                    </tr>`;
+                        });
+
+                    return `
+                <table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+                    <tr style="background-color: #222;">
+                        <th>Từ vựng</th>
+                        <th>Nghĩa</th>
+                    </tr>
+                    ${rows.join('\n')}
+                </table>
+            `;
+                }
 
             } catch (error) {
                 console.error('Lỗi khi lấy từ vựng:', error);
