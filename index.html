@@ -981,25 +981,23 @@
 
         // --- TOGGLE HIỂN THỊ CÂU CHỈNH SỬA ---
         async function toggleCorrectedText() {
-            try {
-                // Lấy văn bản hiện tại từ editableText thay vì resultBox
-                const rawText = elements.editableText.value.trim();
+            const container = elements.correctedContainer;
+            if (!container.classList.contains('hidden')) {
+                container.classList.add('hidden');
+                return;
+            }
 
+            try {
+                const rawText = elements.editableText.value.trim();
                 if (!rawText) {
                     showStatus('warning', 'Không có nội dung để chỉnh sửa');
                     return;
                 }
 
-                // Gọi API chỉnh sửa văn bản
                 const corrected = await correctText(rawText, currentLang);
-
-                // Hiển thị trong corrected box
                 elements.correctedBox.textContent = corrected;
-                elements.correctedContainer.classList.remove('hidden');
-
-                // Cập nhật cả editableText với nội dung đã chỉnh sửa
+                container.classList.remove('hidden');
                 elements.editableText.value = corrected;
-
                 showStatus('success', 'Đã hiển thị câu chỉnh sửa');
             } catch (error) {
                 console.error('Lỗi toggle chỉnh sửa:', error);
@@ -1007,13 +1005,19 @@
             }
         }
 
+
         // Cập nhật hàm toggleTranslation để dịch từ editable box
         async function toggleTranslation() {
+            const container = elements.translationContainer;
+            if (!container.classList.contains('hidden')) {
+                container.classList.add('hidden');
+                return;
+            }
+
             try {
                 const textToTranslate = elements.editableText.value.trim();
-
                 if (!textToTranslate) {
-                    showStatus('warning', 'Không có nội dung trong hộp soạn thảo để dịch');
+                    showStatus('warning', 'Không có nội dung để dịch');
                     return;
                 }
 
@@ -1021,7 +1025,7 @@
                 const translated = await translateText(textToTranslate, currentLang, targetLang);
 
                 elements.translationText.textContent = translated;
-                elements.translationContainer.classList.remove('hidden');
+                container.classList.remove('hidden');
                 showStatus('success', 'Đã dịch nội dung từ hộp soạn thảo');
             } catch (error) {
                 console.error('Lỗi toggle dịch:', error);
@@ -1029,12 +1033,17 @@
             }
         }
 
+
         // --- TOGGLE HIỂN THỊ TỪ VỰNG ---
         async function toggleVocabulary() {
-            try {
-                // Lấy từ editableText
-                const textForVocab = elements.editableText.value.trim();
+            const container = elements.vocabContainer;
+            if (!container.classList.contains('hidden')) {
+                container.classList.add('hidden');
+                return;
+            }
 
+            try {
+                const textForVocab = elements.editableText.value.trim();
                 if (!textForVocab) {
                     showStatus('warning', 'Không có nội dung để gợi ý từ vựng');
                     return;
@@ -1042,13 +1051,14 @@
 
                 const vocabHTML = await suggestVocabulary(textForVocab, currentLang);
                 elements.vocabList.innerHTML = vocabHTML;
-                elements.vocabContainer.classList.remove('hidden');
+                container.classList.remove('hidden');
                 showStatus('success', 'Đã hiển thị gợi ý từ vựng');
             } catch (error) {
                 console.error('Lỗi toggle từ vựng:', error);
                 showStatus('error', 'Lỗi khi hiển thị gợi ý từ vựng');
             }
         }
+
 
         // --- LƯU VĀN BẢN GỐC VÀO EDITABLE ---
         function saveToEditable() {
