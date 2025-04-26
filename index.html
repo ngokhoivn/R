@@ -825,9 +825,16 @@
                 };
 
                 const sourceLanguage = languageMap[sourceLang] || 'Vietnamese';
-                const targetLanguage = languageMap[targetLang] || 'English';
+                const targetLanguage = languageMap[targetLang] || 'Vietnamese';
 
-                const prompt = `Dịch từ ${sourceLanguage} sang ${targetLanguage}, chỉ trả về bản dịch:\n\n${text}`;
+                const prompt = `
+Translate the following text from ${sourceLanguage} to ${targetLanguage} accurately.
+Return only the translated text, with no explanations or additional content.
+Ensure the output is strictly in ${targetLanguage} and not in any other language (e.g., Chinese).
+
+Text to translate:
+"${text}"
+`;
 
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
                     method: 'POST',
@@ -848,6 +855,13 @@
 
                 if (!translated) throw new Error('Bản dịch trống');
 
+                // Basic check for Chinese characters (simplified/traditional)
+                const chineseCharRegex = /[\u4E00-\u9FFF]/;
+                if (targetLang === 'vi-VN' && chineseCharRegex.test(translated)) {
+                    console.warn('Detected Chinese characters in translation:', translated);
+                    throw new Error('API trả về tiếng Trung thay vì tiếng Việt');
+                }
+
                 showStatus('success', 'Đã dịch xong');
                 return translated;
             } catch (error) {
@@ -857,7 +871,7 @@
             }
         }
 
-        // --- GỢI Ý từ VỰNG ---
+        // --- GỢI Ý TỪ VỰNG ---
         async function suggestVocabulary(text, sourceLang) {
             if (!text || text.trim() === '') {
                 return '<i>Không có nội dung để gợi ý từ vựng</i>';
@@ -876,14 +890,37 @@
 
                 let prompt;
                 if (sourceLang === 'ja-JP') {
-                    prompt = `Extract Japanese vocabulary from this sentence in format:
-                Kanji = Hiragana = Vietnamese meaning.
-                If no vocabulary found, reply "No vocabulary".
-                Only list vocabulary, no explanations:\n\n"${text}"`;
+                    prompt = `
+Analyze the following Japanese text and extract a list of important vocabulary words in the format:
+Kanji = Hiragana = Vietnamese Meaning
+
+Requirements:
+- Each line must follow the format: Kanji = Hiragana = Vietnamese Meaning.
+- For words without Kanji (e.g., pure Hiragana), use the same text for both Kanji and Hiragana fields.
+- Select only significant or challenging vocabulary relevant to the text's context.
+- Provide concise Vietnamese meanings that match the word's usage in the text.
+- Do not include explanations or additional text beyond the vocabulary list.
+- Return an empty list if no significant vocabulary is found.
+
+Text to analyze:
+"${text}"
+`;
                 } else {
-                    prompt = `Extract important vocabulary words from this ${language} sentence
-                with Vietnamese translations. Format each as: Word = Translation.
-                If none, reply "No vocabulary". Only list words:\n\n"${text}"`;
+                    // Prompt for other languages (e.g., vi-VN, en-US)
+                    prompt = `
+Analyze the following ${language} text and extract a list of important vocabulary words in the format:
+Word = Vietnamese Meaning
+
+Requirements:
+- Each line must follow the format: Word = Vietnamese Meaning.
+- Select only significant or challenging vocabulary relevant to the text's context.
+- Provide concise Vietnamese meanings that match the word's usage in the text.
+- Do not include explanations or additional text beyond the vocabulary list.
+- Return an empty list if no significant vocabulary is found.
+
+Text to analyze:
+"${text}"
+`;
                 }
 
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
@@ -908,11 +945,11 @@
 
                 const rawText = data.candidates[0].content.parts[0].text.trim();
 
-                if (rawText.toLowerCase().includes('no vocabulary')) {
+                if (rawText.toLowerCase().includes('no vocabulary') || rawText === '') {
                     return '<i>Không có từ vựng nào được phát hiện.</i>';
                 }
 
-                // Xử lý kết quả cho tiếng Nhật (3 cột)
+                // Process results for Japanese (3 columns: Kanji, Hiragana, Meaning)
                 if (sourceLang === 'ja-JP') {
                     const rows = rawText.split('\n')
                         .filter(line => line.trim() && line.includes('='))
@@ -929,7 +966,7 @@
                         })
                         .filter(row => row !== '');
 
-                return `
+                    return `
                 <table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
                     <tr style="background-color: #222;">
                         <th>Kanji</th>
@@ -937,15 +974,15 @@
                         <th>Nghĩa</th>
                     </tr>
                     ${rows.join('\n')}
-                </table>                
+                </table>
             `;
                 }
-                // Xử lý cho các ngôn ngữ khác (2 cột)
+                // Process for other languages (2 columns: Word, Meaning)
                 else {
                     const rows = rawText.split('\n')
-                        .filter(line => line.trim() && line.includes('-'))
+                        .filter(line => line.trim() && line.includes('='))
                         .map(line => {
-                            const parts = line.split('-').map(s => s.trim());
+                            const parts = line.split('=').map(s => s.trim());
                             return `<tr>
                         <td>${parts[0]}</td>
                         <td>${parts.slice(1).join(' - ')}</td>
