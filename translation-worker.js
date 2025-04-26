@@ -153,6 +153,11 @@
 				animation: pulse 1.5s infinite;
 			}
 
+        .btn-bilingual.active {
+            background-color: var(--danger-color);
+            animation: pulse 1.5s infinite;
+        }
+
 		@keyframes pulse {
 			0% {
 				box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
@@ -514,7 +519,6 @@
             vocabList: document.getElementById('vocabList'),
             vocabContainer: document.getElementById('vocabContainer'),
             editableText: document.getElementById('editableText'),
-            micButton: document.getElementById('micButton'),
             translationBox: document.getElementById('translationContainer'),
             vocabBox: document.getElementById('vocabContainer'),
             langTabs: {
@@ -1320,7 +1324,9 @@
 
         // --- CẬP NHẬT TRẠNG THÁI NÚT MIC ---
         function updateMicButtonState(isActive) {
-            const micButton = elements.micButton;
+            const micButton = document.getElementById('micButton'); // Lấy lại từ DOM trực tiếp mỗi lần
+
+            if (!micButton) return; // Nếu chưa có thì bỏ qua
 
             if (isActive) {
                 micButton.classList.add('active');
@@ -1331,12 +1337,27 @@
             }
         }
 
+
         // --- CHẾ ĐỘ SONG NGỮ ---
         function toggleBilingualMode() {
             bilingualMode = !bilingualMode;
-            this.classList.toggle('active');
-            showStatus('info', `Chế độ song ngữ: ${bilingualMode ? 'BẬT' : 'TẮT'}`);
+            const bilingualButton = document.getElementById('toggleBilingual');
+
+            if (bilingualMode) {
+                bilingualButton.classList.add('active');
+
+                // LUÔN hiện bảng dịch khi bật chế độ song ngữ
+                elements.translationContainer.classList.remove('hidden');
+                showStatus('info', 'Chế độ song ngữ: BẬT');
+            } else {
+                bilingualButton.classList.remove('active');
+
+                // Ẩn bảng dịch khi tắt chế độ song ngữ
+                elements.translationContainer.classList.add('hidden');
+                showStatus('info', 'Chế độ song ngữ: TẮT');
+            }
         }
+
 
         // Hàm dịch nội dung đã chỉnh sửa
         async function onTranslateCorrectedClick() {
@@ -1419,7 +1440,7 @@
     <div class="floating-action-bar">
         <div class="action-buttons-scroll">
             <button id="micButton" class="btn btn-mic" onclick="onMicButtonClick()">🎙️ Ghi âm</button>
-            <button id="toggleBilingual" class="btn" onclick="toggleBilingualMode()">🌐 Chế độ song ngữ</button>
+            <button id="toggleBilingual" class="btn btn-bilingual" onclick="toggleBilingualMode()">🌐 Chế độ song ngữ</button>
             <button id="correctionButton" class="btn btn-correct" onclick="onCorrectionButtonClick()">✏️ Chỉnh sửa</button>
             <button id="translateButton" class="btn btn-translate" onclick="onTranslateButtonClick()">🔄 Dịch</button>
             <button id="vocabButton" class="btn btn-vocab" onclick="onVocabButtonClick()">📚 Từ vựng</button>
