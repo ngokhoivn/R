@@ -292,9 +292,11 @@
             background-color: var(--background-light);
             border-radius: 50px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            max-width: 90%;
-            pointer-events: auto; /* Bật lại click cho vùng nút */
-            scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
+            width: 100%;
+            max-width: 100%;
+            pointer-events: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
 
             .action-buttons-scroll::-webkit-scrollbar {
